@@ -1,0 +1,16 @@
+.DS_Store
+._*
+Thumbs.db
+node_modules/
+.openai/
+.env
+.env.*
+!.env.example
+*.log
+*.tmp
+*.swp
+*~
+.cache/
+coverage/
+playwright-report/
+test-results/

@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f8f7f0" />
+    <meta
+      name="description"
+      content="Customize a Supabasito mascot with colors, accessories, images, and text."
+    />
+    <title>Supabasito editor</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%233ecf8e' d='M58 5 8 59h35v36l49-55H58Z'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="styles.css?v=32" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="./" aria-label="Supabasito home"
+        ><svg viewBox="0 0 32 36" aria-hidden="true">
+          <path d="M18 2 3 21h12v13l15-20H18Z" fill="currentColor" />
+        </svg>
+        <div>supabasito</div></a
+      >
+      <div class="header-actions">
+        <div class="download-group">
+          <button id="download" class="button button-dark">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 3v12m-5-5 5 5 5-5M5 17v4h14v-4" /></svg
+            >Download PNG</button
+          ><button
+            class="button button-dark download-more"
+            id="download-more"
+            aria-label="More download options"
+            aria-expanded="false"
+            aria-controls="download-menu"
+          >
+            ⌄
+          </button>
+          <div id="download-menu" class="download-menu" hidden>
+            <button id="download-svg">
+              Download SVG <span>Editable vector</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main>
+      <h1 class="visually-hidden">Supabasito editor</h1>
+      <section class="workshop" aria-label="Mascot editor">
+        <div class="preview-shell">
+          <div id="canvas" class="canvas">
+            <div
+              id="mascot"
+              class="mascot"
+              tabindex="0"
+              role="group"
+              aria-label="Mascot canvas. Select a layer and drag, or use arrow keys to move it. Shift moves faster."
+            ></div>
+          </div>
+        </div>
+        <aside class="customizer">
+          <div
+            class="tabs"
+            role="tablist"
+            aria-label="Customization categories"
+          >
+            <button
+              role="tab"
+              id="tab-colors"
+              aria-selected="true"
+              aria-controls="panel-colors"
+              data-tab="colors"
+            >
+              Colors</button
+            ><button
+              role="tab"
+              id="tab-face"
+              aria-selected="false"
+              aria-controls="panel-face"
+              tabindex="-1"
+              data-tab="face"
+            >
+              Face
+            </button>
+            <button
+              role="tab"
+              id="tab-props"
+              aria-selected="false"
+              aria-controls="panel-props"
+              tabindex="-1"
+              data-tab="props"
+            >
+              Props
+            </button>
+            <button
+              role="tab"
+              id="tab-uploads"
+              aria-selected="false"
+              aria-controls="panel-uploads"
+              tabindex="-1"
+            >
+              Uploads
+            </button>
+            <button
+              role="tab"
+              id="tab-text"
+              aria-selected="false"
+              aria-controls="panel-text"
+              tabindex="-1"
+            >
+              Text
+            </button>
+          </div>
+          <div class="panels">
+            <div id="panel-colors" role="tabpanel" aria-labelledby="tab-colors">
+              <div class="control-heading">
+                <h3>Body color</h3>
+                <span id="body-value">Supabase green</span>
+              </div>
+              <div id="body-swatches" class="swatches"></div>
+              <div class="custom-color">
+                <label for="body-color"
+                  ><span class="color-picker-icon">＋</span> Custom color</label
+                ><input
+                  id="body-color"
+                  type="color"
+                  value="#3ecf8e"
+                  aria-label="Custom body color"
+                /><span id="body-hex">#3ECF8E</span>
+              </div>
+              <div class="control-heading shoes-heading">
+                <h3>Shoe color</h3>
+              </div>
+              <div id="shoe-swatches" class="swatches"></div>
+            </div>
+            <div
+              id="panel-face"
+              role="tabpanel"
+              aria-labelledby="tab-face"
+              hidden
+            >
+              <div class="control-heading">
+                <h3>Choose a face</h3>
+              </div>
+              <div id="face-options" class="options-grid"></div>
+            </div>
+            <div
+              id="panel-props"
+              role="tabpanel"
+              aria-labelledby="tab-props"
+              hidden
+            >
+              <div class="control-heading">
+                <h3>Hats</h3>
+              </div>
+              <div id="hat-options" class="options-grid"></div>
+              <div class="control-heading accessory-heading">
+                <h3>Glasses</h3>
+              </div>
+              <div
+                id="glasses-options"
+                class="options-grid"
+                role="group"
+                aria-label="Glasses"
+              ></div>
+              <div class="control-heading accessory-heading">
+                <h3>Hand props</h3>
+              </div>
+              <div
+                id="prop-options"
+                class="options-grid"
+                role="group"
+                aria-label="Hand props"
+              ></div>
+              <div id="flag-picker" class="flag-picker" hidden>
+                <label class="field-label" for="flag-emoji">Flag emoji</label>
+                <select id="flag-emoji"></select>
+              </div>
+            </div>
+            <div
+              id="panel-uploads"
+              role="tabpanel"
+              aria-labelledby="tab-uploads"
+              hidden
+            >
+              <div class="control-heading">
+                <h3>Images</h3>
+                <span id="upload-count">0 / 5 images</span>
+              </div>
+              <label class="upload-zone" id="upload-zone" for="image-upload"
+                ><span>＋ Add your image</span
+                ><small
+                  >PNG, JPEG, WebP · up to 5 MB each<br />Choose files or drop
+                  them here</small
+                ></label
+              >
+              <input
+                id="image-upload"
+                class="file-input"
+                type="file"
+                accept="image/png,image/jpeg,image/webp"
+                multiple
+              />
+              <p id="upload-message" class="panel-note" role="status">
+                Images stay in your browser.
+              </p>
+              <div id="upload-list" class="upload-list"></div>
+            </div>
+            <div
+              id="panel-text"
+              role="tabpanel"
+              aria-labelledby="tab-text"
+              hidden
+            >
+              <label class="field-label" id="caption-mode" for="caption-text"
+                >New caption</label
+              >
+              <textarea
+                id="caption-text"
+                maxlength="100"
+                rows="3"
+                placeholder="Enter caption"
+              ></textarea>
+              <div class="text-meta">
+                <span id="caption-count">0 / 100</span>
+              </div>
+              <div class="caption-actions">
+                <button
+                  id="caption-add"
+                  type="button"
+                  class="button button-dark"
+                  disabled
+                >
+                  Add caption
+                </button>
+                <button id="caption-new" type="button" class="button" hidden>
+                  New caption
+                </button>
+                <span id="caption-limit">0 / 20 captions</span>
+              </div>
+              <div class="text-options">
+                <label for="caption-size"
+                  >Size
+                  <input
+                    id="caption-size"
+                    type="range"
+                    min="16"
+                    max="100"
+                    value="64" /></label
+                ><label for="caption-color"
+                  >Color <input id="caption-color" type="color" value="#ffffff"
+                /></label>
+              </div>
+              <p class="panel-note">
+                Select a caption to edit it. Drag it to move, or use the corner
+                handles to resize.
+              </p>
+            </div>
+          </div>
+          <section class="layer-editor" aria-labelledby="layers-heading">
+            <h2 id="layers-heading" class="field-label">Layers</h2>
+            <ol
+              id="layer-list"
+              class="layer-list"
+              aria-label="Layers, front to back"
+            ></ol>
+          </section>
+          <div class="saved-note" id="save-state" role="status">
+            Changes stay in this browser.
+          </div>
+        </aside>
+      </section>
+    </main>
+    <div id="status" class="toast" role="status" aria-live="polite"></div>
+    <script type="module" src="app.mjs?v=36"></script>
+  </body>
+</html>
